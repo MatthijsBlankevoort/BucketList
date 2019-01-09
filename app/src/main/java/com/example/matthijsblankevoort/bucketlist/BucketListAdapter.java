@@ -17,10 +17,12 @@ public class BucketListAdapter extends RecyclerView.Adapter<BucketListAdapter.My
     // you provide access to all the views for a data item in a view holder
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView mTextView;
+        public TextView textView;
+        public CheckBox checkBox;
         public MyViewHolder(View v) {
             super(v);
-            mTextView = v.findViewById(R.id.bucketlist_description);
+            textView = v.findViewById(R.id.bucketlist_description);
+            checkBox = v.findViewById(R.id.checkBox);
         }
     }
 
@@ -45,7 +47,9 @@ public class BucketListAdapter extends RecyclerView.Adapter<BucketListAdapter.My
     public void onBindViewHolder(MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(mBucketListItems.get(position).getDescription());
+        holder.
+            textView.setText(mBucketListItems.get(position).getDescription());
+        holder.checkBox.setText(mBucketListItems.get(position).getDescription());
     }
 
     // Return the size of your dataset (invoked by the layout manager)

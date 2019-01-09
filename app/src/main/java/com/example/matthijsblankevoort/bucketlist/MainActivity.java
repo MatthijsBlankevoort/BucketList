@@ -1,5 +1,6 @@
 package com.example.matthijsblankevoort.bucketlist;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        BucketListDatabase db = BucketListDatabase.getBucketListDatabase(this);
+        bucketListItems = db.BucketListItemDao().getAll();
 
         mRecyclerView = findViewById(R.id.recyclerView);
         floatingActionButton = findViewById(R.id.floatingActionButton);
