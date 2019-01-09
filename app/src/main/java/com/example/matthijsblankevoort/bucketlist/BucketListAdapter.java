@@ -49,7 +49,7 @@ public class BucketListAdapter extends RecyclerView.Adapter<BucketListAdapter.My
         // - replace the contents of the view with that element
         holder.
             textView.setText(mBucketListItems.get(position).getDescription());
-        holder.checkBox.setText(mBucketListItems.get(position).getDescription());
+        holder.checkBox.setText(mBucketListItems.get(position).getTitle());
     }
 
     // Return the size of your dataset (invoked by the layout manager)

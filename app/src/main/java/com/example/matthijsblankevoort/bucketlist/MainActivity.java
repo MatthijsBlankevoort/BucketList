@@ -1,7 +1,9 @@
 package com.example.matthijsblankevoort.bucketlist;
 
+import android.arch.lifecycle.Observer;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,13 +23,20 @@ public class MainActivity extends AppCompatActivity {
 
     private List<BucketListItem> bucketListItems = new ArrayList<>();
 
+    public static BucketListViewModel bucketListViewModel;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        bucketListViewModel = new BucketListViewModel(getApplicationContext());
+
+
 
         BucketListDatabase db = BucketListDatabase.getBucketListDatabase(this);
-        bucketListItems = db.BucketListItemDao().getAll();
+        bucketListItems = new ArrayList<>();
+//        bucketListItems = db.BucketListItemDao().getAllBucketListItems();
 
         mRecyclerView = findViewById(R.id.recyclerView);
         floatingActionButton = findViewById(R.id.floatingActionButton);
@@ -37,6 +46,15 @@ public class MainActivity extends AppCompatActivity {
 
         mAdapter = new BucketListAdapter(bucketListItems);
         mRecyclerView.setAdapter(mAdapter);
+
+        bucketListViewModel.getBucketListItems().observe(this, new Observer<List<BucketListItem>>() {
+            @Override
+            public void onChanged(@Nullable List<BucketListItem> bucketListItemList) {
+                bucketListItems.clear();
+                bucketListItems.addAll(bucketListItemList);
+                mAdapter.notifyDataSetChanged();
+            }
+        });
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override

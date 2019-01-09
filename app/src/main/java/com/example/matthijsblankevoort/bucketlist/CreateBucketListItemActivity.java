@@ -30,8 +30,7 @@ public class CreateBucketListItemActivity extends AppCompatActivity {
                 bucketListItem.setTitle(title.getText().toString());
                 bucketListItem.setDescription(description.getText().toString());
                 bucketListItem.setCompleted(false);
-                BucketListDatabase.getBucketListDatabase(CreateBucketListItemActivity.this).BucketListItemDao().insert(bucketListItem);
-
+                MainActivity.bucketListViewModel.insert(bucketListItem);
                 finish();
             }
         });
