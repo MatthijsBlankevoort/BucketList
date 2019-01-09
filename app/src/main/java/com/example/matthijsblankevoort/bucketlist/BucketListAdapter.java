@@ -44,12 +44,22 @@ public class BucketListAdapter extends RecyclerView.Adapter<BucketListAdapter.My
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.
             textView.setText(mBucketListItems.get(position).getDescription());
         holder.checkBox.setText(mBucketListItems.get(position).getTitle());
+        holder.checkBox.setChecked(mBucketListItems.get(position).getCompleted());
+
+        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.checkBox.setChecked(true);
+                mBucketListItems.get(position).setCompleted(!mBucketListItems.get(position).getCompleted());
+                MainActivity.bucketListViewModel.update(mBucketListItems.get(position));
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)
